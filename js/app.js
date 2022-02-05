@@ -1,22 +1,31 @@
 // declaring navigation, section, btn  and tags
-let navLi;
 let section;
 let botton;
 let aTag;
+let navLi;
 
 // creating li and looping sections to get the Id and Data-nav
 const LiCreator = (section) => {
   // section loop
+  let botton = "";
+
   section.forEach((sec) => {
     const secId = sec.id;
     const aText = sec.dataset.nav;
-    //  anchor tags and passing id and btn innertext
-    aTag = `<a class="menu__link" href="#${secId}">${aText}</a>`;
-    //  creating four Botton in the header
-    botton += `<li>${aTag}</li>`;
+
+    // creating list items
+    botton = document.createElement("li");
+
+    // adding anchor tags to list items
+    botton.innerHTML += `<a href='#${secId}' class='menu__link'>${aText}</a>`;
+
+    navLi = document.querySelector("#navbar__list");
+    // adding the list item to ul
+    navLi.appendChild(botton);
   });
+
   // appending nav-ul
-  navLi = document.querySelector("#navbar__list").innerHTML = botton;
+  // console.log(navLi)
 };
 
 // function for passing params and declaring inside the function the liCreator function
@@ -46,9 +55,7 @@ const clicked = () => {
   }
 };
 
-
 clicked();
-
 
 //  here i created the eventlistner for active class i am using math.ceil to round the number
 
@@ -65,26 +72,25 @@ window.addEventListener("scroll", function () {
   });
 });
 
-// here i created the smooth scroll function 
+// here i created the smooth scroll function
 const smoothScr = () => {
-  const btnClik = document.querySelectorAll('#navbar__list a');
+  const btnClik = document.querySelectorAll("#navbar__list a");
 
   btnClik.forEach((elem) => {
-   
     // console.log(elem);
-    elem.addEventListener('click', (ev) =>{
+    elem.addEventListener("click", (ev) => {
       ev.preventDefault();
- 
+
       section.forEach((sec) => {
         // console.log(ev.currentTarget.getAttribute("href"))
-    document.querySelector(ev.currentTarget.getAttribute("href")).scrollIntoView({
-        behavior: "smooth"
-          })
-       })
-    })
+        document
+          .querySelector(ev.currentTarget.getAttribute("href"))
+          .scrollIntoView({
+            behavior: "smooth",
+          });
+      });
     });
-
-}
+  });
+};
 
 smoothScr();
-
